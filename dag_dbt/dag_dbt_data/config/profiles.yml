@@ -1,0 +1,15 @@
+config:
+    use_colors: True
+dag_dbt_data:
+  target: local
+  outputs:
+    local:
+      type: postgres
+      threads: 1
+      host: localhost
+      port: 5432
+      user: "testuser"
+      pass: "test"
+      dbname: testdata
+      schema: public
+      client_session_keep_alive: False

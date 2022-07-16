@@ -1,5 +1,3 @@
-import pandas as pd
-import numpy as np
 from dagster import job
 
 from dag_dbt.ops.ingest import ingest_data_to_postgres, fetch_data
