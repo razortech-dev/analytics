@@ -3,6 +3,16 @@
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
       <excludeFolder url="file://$MODULE_DIR$/venv" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/dataSources" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/ZeppelinRemoteNotebooks" />
+      <excludeFolder url="file://$MODULE_DIR$/dag_dbt/dag_dbt_data/dbt_packages" />
+      <excludeFolder url="file://$MODULE_DIR$/dag_dbt/dag_dbt_data/logs" />
+      <excludeFolder url="file://$MODULE_DIR$/dag_dbt/dag_dbt_data/target" />
+      <excludeFolder url="file://$MODULE_DIR$/venv3.9/bin" />
+      <excludeFolder url="file://$MODULE_DIR$/venv3.9/include" />
+      <excludeFolder url="file://$MODULE_DIR$/venv3.9/lib" />
+      <excludeFolder url="file://$MODULE_DIR$/venv3.9/share" />
+      <excludeFolder url="file://$MODULE_DIR$/venv3.9" />
     </content>
     <orderEntry type="jdk" jdkName="Python 3.9 (dagster_dbt_etl)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
