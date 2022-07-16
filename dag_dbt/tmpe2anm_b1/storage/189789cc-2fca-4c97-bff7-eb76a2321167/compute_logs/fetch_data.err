@@ -1,0 +1,27 @@
+[32m2022-07-16 12:06:05 +0530[0m - dagster - [34mDEBUG[0m - run_ingest_job - 189789cc-2fca-4c97-bff7-eb76a2321167 - 98077 - fetch_data - LOGS_CAPTURED - Started capturing logs for step: fetch_data.
+[32m2022-07-16 12:06:05 +0530[0m - dagster - [34mDEBUG[0m - run_ingest_job - 189789cc-2fca-4c97-bff7-eb76a2321167 - 98077 - fetch_data - STEP_START - Started execution of step "fetch_data".
+[32m2022-07-16 12:06:06 +0530[0m - dagster - [34mINFO[0m - run_ingest_job - 189789cc-2fca-4c97-bff7-eb76a2321167 - fetch_data -   Federal Provider Number  ... Processing Date
+0                  015009  ...      2022-06-01
+1                  015010  ...      2022-06-01
+2                  015012  ...      2022-06-01
+3                  015014  ...      2022-06-01
+4                  015015  ...      2022-06-01
+
+[5 rows x 96 columns]
+      Federal Provider Number  ... Processing Date
+0                      015009  ...      2022-06-01
+1                      015010  ...      2022-06-01
+2                      015012  ...      2022-06-01
+3                      015014  ...      2022-06-01
+4                      015015  ...      2022-06-01
+...                       ...  ...             ...
+15185                  745001  ...      2022-06-01
+15186                  745002  ...      2022-06-01
+15187                  745003  ...      2022-06-01
+15188                  745005  ...      2022-06-01
+15189                  745006  ...      2022-06-01
+
+[15190 rows x 96 columns]
+[32m2022-07-16 12:06:06 +0530[0m - dagster - [34mDEBUG[0m - run_ingest_job - 189789cc-2fca-4c97-bff7-eb76a2321167 - 98077 - fetch_data - STEP_OUTPUT - Yielded output "df" of type "Any". (Type check passed).
+[32m2022-07-16 12:06:06 +0530[0m - dagster - [34mDEBUG[0m - run_ingest_job - 189789cc-2fca-4c97-bff7-eb76a2321167 - 98077 - fetch_data - HANDLED_OUTPUT - Handled output "df" using IO manager "io_manager"
+[32m2022-07-16 12:06:06 +0530[0m - dagster - [34mDEBUG[0m - run_ingest_job - 189789cc-2fca-4c97-bff7-eb76a2321167 - 98077 - fetch_data - STEP_SUCCESS - Finished execution of step "fetch_data" in 667ms.

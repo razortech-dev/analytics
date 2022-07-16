@@ -1,0 +1,24 @@
+[32m2022-07-16 12:08:05 +0530[0m - dagster - [34mDEBUG[0m - run_ingest_job - c4e1dada-5362-4524-8f92-ae85cebc1a8e - 98682 - ingest_data_to_postgres - LOGS_CAPTURED - Started capturing logs for step: ingest_data_to_postgres.
+[32m2022-07-16 12:08:05 +0530[0m - dagster - [34mDEBUG[0m - run_ingest_job - c4e1dada-5362-4524-8f92-ae85cebc1a8e - 98682 - ingest_data_to_postgres - STEP_START - Started execution of step "ingest_data_to_postgres".
+[32m2022-07-16 12:08:05 +0530[0m - dagster - [34mDEBUG[0m - run_ingest_job - c4e1dada-5362-4524-8f92-ae85cebc1a8e - 98682 - ingest_data_to_postgres - LOADED_INPUT - Loaded input "df" using input manager "io_manager", from output "df" of step "fetch_data"
+[32m2022-07-16 12:08:05 +0530[0m - dagster - [34mDEBUG[0m - run_ingest_job - c4e1dada-5362-4524-8f92-ae85cebc1a8e - 98682 - ingest_data_to_postgres - STEP_INPUT - Got input "df" of type "DataFrame". (Type check passed).
+[32m2022-07-16 12:08:05 +0530[0m - dagster - [34mINFO[0m - run_ingest_job - c4e1dada-5362-4524-8f92-ae85cebc1a8e - ingest_data_to_postgres -   Federal Provider Number  ... Date vaccination data last updated
+0                  015009  ...                         06/26/2022
+1                  015010  ...                         06/26/2022
+2                  015012  ...                         06/26/2022
+3                  015014  ...                         06/26/2022
+4                  015015  ...                         06/26/2022
+
+[5 rows x 7 columns]
+  Federal Provider Number  ... Date vaccination data last updated
+0                  015009  ...                         06/26/2022
+1                  015010  ...                         06/26/2022
+2                  015012  ...                         06/26/2022
+3                  015014  ...                         06/26/2022
+4                  015015  ...                         06/26/2022
+
+[5 rows x 7 columns]
+[32m2022-07-16 12:08:05 +0530[0m - dagster - [34mINFO[0m - run_ingest_job - c4e1dada-5362-4524-8f92-ae85cebc1a8e - ingest_data_to_postgres - Data ingestion successful
+[32m2022-07-16 12:08:05 +0530[0m - dagster - [34mDEBUG[0m - run_ingest_job - c4e1dada-5362-4524-8f92-ae85cebc1a8e - 98682 - ingest_data_to_postgres - STEP_OUTPUT - Yielded output "result" of type "Any". (Type check passed).
+[32m2022-07-16 12:08:05 +0530[0m - dagster - [34mDEBUG[0m - run_ingest_job - c4e1dada-5362-4524-8f92-ae85cebc1a8e - 98682 - ingest_data_to_postgres - HANDLED_OUTPUT - Handled output "result" using IO manager "io_manager"
+[32m2022-07-16 12:08:05 +0530[0m - dagster - [34mDEBUG[0m - run_ingest_job - c4e1dada-5362-4524-8f92-ae85cebc1a8e - 98682 - ingest_data_to_postgres - STEP_SUCCESS - Finished execution of step "ingest_data_to_postgres" in 532ms.
