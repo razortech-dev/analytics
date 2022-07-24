@@ -1,13 +1,18 @@
+import os
+from dotenv import load_dotenv
 from sqlalchemy import create_engine
 
 
 def get_postgres_conn():
-    pwd = 'test'
-    uid = 'testuser'
-    server = 'localhost'
-    db = 'testdata'
-    port = 5432
+    load_dotenv()
+    pwd = os.getenv("DB_PASSWORD")
+    uid = os.getenv("DB_USERNAME")
+    server = os.getenv("DB_SERVER")
+    db = os.getenv("DB_NAME")
+    port = os.getenv("DB_PORT")
+
     cs = create_engine(f'postgresql://{uid}:{pwd}@{server}:{port}/{db}')
+
     try:
         return cs
     except:

@@ -13,6 +13,7 @@ dbt_local_resource = dbt_cli_resource.configured(
     {"profiles-dir": DBT_PROFILES_DIR, "project-dir": DBT_PROJECT_DIR, "target": "local"}
 )
 
+
 @graph
 def dbt_metrics():
     dag_dbt_test(dag_dbt_run())
