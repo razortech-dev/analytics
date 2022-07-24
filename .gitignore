@@ -26,6 +26,7 @@ target/
 
 # Distribution / packaging
 .Python
+*.pyc
 develop-eggs/
 eggs/
 .eggs/

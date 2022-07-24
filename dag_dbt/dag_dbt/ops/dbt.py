@@ -1,9 +1,10 @@
 from dagster_dbt import DbtCliOutput
 
-from dagster import Out, Output, op
+from dagster import Out, Output, op, Nothing, In
 
 
 @op(
+    ins={"source1": In(Nothing), "source2": In(Nothing)},
     required_resource_keys={"dbt"},
     out=Out(dagster_type=DbtCliOutput),
     tags={"kind": "dbt"},
