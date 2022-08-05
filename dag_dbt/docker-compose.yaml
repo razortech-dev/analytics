@@ -1,0 +1,127 @@
+version: "3.7"
+
+services:
+  # This service runs the postgres DB used by dagster for run storage, schedule storage,
+  # and event log storage.
+  postgresql:
+    env_file: .env
+    image: postgres:14
+    container_name: postgresql
+    restart: always
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASS}
+      POSTGRES_DB: ${POSTGRES_DB}
+    ports:
+      - "5433:5432"
+    networks:
+      - docker_network
+
+  # This service runs the gRPC server that loads your user code, in both dagit
+  # and dagster-daemon. By setting DAGSTER_CURRENT_IMAGE to its own image, we tell the
+  # run launcher to use this same image when launching runs in a new container as well.
+  # Multiple containers like this can be deployed separately - each just needs to run on
+  # its own port, and have its own entry in the workspace.yaml file that's loaded by dagit.
+  user_code:
+    env_file: .env
+    container_name: user_code
+    build:
+      context: .
+      dockerfile: ./Dockerfile_user_code
+    image: user_code_image
+    restart: always
+    environment:
+      DOCKER_DATA_DIR: ${DOCKER_DATA_DIR}
+      DAGSTER_POSTGRES_USER: ${LOCAL_POSTGRES_USER}
+      DAGSTER_POSTGRES_PASSWORD: ${LOCAL_POSTGRES_PASS}
+      DAGSTER_POSTGRES_DB: ${LOCAL_POSTGRES_DB}
+      DAGSTER_CURRENT_IMAGE: "user_code_image"
+    networks:
+      - docker_network
+
+  # This service runs dagit, which loads your user code from the user code container.
+  # Since our instance uses the QueuedRunCoordinator, any runs submitted from dagit will be put on
+  # a queue and later dequeued and launched by dagster-daemon.
+  dagit:
+    env_file: .env
+    build:
+      context: .
+      dockerfile: ./Dockerfile_dagster
+    entrypoint:
+      - dagit
+      - -h
+      - "0.0.0.0"
+      - -p
+      - "3000"
+      - -w
+      - workspace.yaml
+    container_name: dagit
+    expose:
+      - "3000"
+    ports:
+      - "3000:3000"
+    environment:
+      DAGSTER_POSTGRES_USER: ${POSTGRES_USER}
+      DAGSTER_POSTGRES_PASSWORD: ${POSTGRES_PASS}
+      DAGSTER_POSTGRES_DB: ${POSTGRES_DB}
+    volumes: # Make docker client accessible so we can terminate containers from dagit
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /tmp/io_manager_storage:/tmp/io_manager_storage
+    networks:
+      - docker_network
+    depends_on:
+      - postgresql
+      - user_code
+
+  # This service runs the dagster-daemon process, which is responsible for taking runs
+  # off of the queue and launching them, as well as creating runs from schedules or sensors.
+  dagster_daemon:
+    env_file: .env
+    build:
+      context: .
+      dockerfile: ./Dockerfile_dagster
+    entrypoint:
+      - dagster-daemon
+      - run
+    container_name: dagster_daemon
+    restart: on-failure
+    environment:
+      DAGSTER_POSTGRES_USER: ${POSTGRES_USER}
+      DAGSTER_POSTGRES_PASSWORD: ${POSTGRES_PASS}
+      DAGSTER_POSTGRES_DB: ${POSTGRES_DB}
+    volumes: # Make docker client accessible so we can launch containers using host docker
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /tmp/io_manager_storage:/tmp/io_manager_storage
+    networks:
+      - docker_network
+    depends_on:
+      - postgresql
+      - user_code
+
+  metabase_app:
+    env_file: .env
+    image: metabase/metabase
+    container_name: metabase
+    restart: always
+    volumes:
+      - ./metabase/metabase.db:/metabase.db
+    environment:
+      MB_ENCRYPTION_SECRET_KEY: abcdefghijklmnopqrstuvwxyz
+      MB_DB_FILE: /metabase.db
+      MB_DB_TYPE: postgres
+      MB_DB_DBNAME: ${LOCAL_POSTGRES_DB}
+      MB_DB_PORT: 5432
+      MB_DB_USER: ${LOCAL_POSTGRES_USER}
+      MB_DB_PASS: ${LOCAL_POSTGRES_PASS}
+      MB_DB_HOST: ${LOCAL_POSTGRES_HOST}
+    ports:
+      - "12345:3000"
+    networks:
+      - docker_network
+    depends_on:
+      - user_code
+
+networks:
+  docker_network:
+    driver: bridge
+    name: docker_network

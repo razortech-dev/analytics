@@ -1,0 +1,37 @@
+#ignore all logs
+*.log
+
+# Byte-compiled / optimized / DLL files
+*/__pycache__/*
+*.py[cod]
+*$py.class
+
+# dotenv
+.env
+*.env
+
+# virtualenv
+.venv
+venv/
+venv3.9/
+ENV/
+Pipfile
+Pipfile.lock
+
+# PyCharm IDE Config files
+.idea
+
+# PyBuilder
+target/
+
+
+# Distribution / packaging
+.Python
+*.pyc
+develop-eggs/
+eggs/
+.eggs/
+*.egg-info/
+.installed.cfg
+*.egg
+

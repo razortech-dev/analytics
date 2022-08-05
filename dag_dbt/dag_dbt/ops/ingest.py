@@ -11,7 +11,7 @@ def fetch_data(context):
     try:
         lgr = logging.getLogger('console_logger')
 
-        filepath = '/home/razortech/Downloads/datasets/NH_ProviderInfo_Jun2022.csv'
+        filepath = '/home/razortech/Downloads/datasets/NH_CovidVaxProvider_20220626.csv'
         df = pd.read_csv(filepath, sep=',', encoding='cp1252').replace(to_replace='null', value=np.NaN)
         context.log.info(df.head())
         lgr.error(df)
@@ -31,7 +31,7 @@ def ingest_data_to_postgres(context, df: DataFrame):
         lgr.error(df.head())
         # save df to postgres
         engine = get_postgres_conn()
-        df.to_sql(f'stg_testdata', engine, if_exists='replace', index=False, schema="public")
+        df.to_sql(f'NH_CovidVaxProvider_20220626_data', engine, if_exists='replace', index=False, schema="public")
         # print success message
         context.log.info("Data ingestion successful")
     except Exception as e:
